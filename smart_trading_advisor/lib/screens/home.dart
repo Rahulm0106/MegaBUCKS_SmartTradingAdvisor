@@ -14,8 +14,8 @@ class _HomePageState extends State<HomePage> {
   bool isloggedin = false;
 
   checkAuthentication() async {
-    _auth.onAuthStateChanged.listen((user) {
-      if (user == null) {
+    _auth.onAuthStateChanged.listen((newUser) {
+      if (newUser == null) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Start()));
       }
@@ -45,6 +45,64 @@ class _HomePageState extends State<HomePage> {
     this.getUser();
   }
 
+  // _drawer() {
+  //   new Drawer(
+  //     child: new ListView(
+  //       padding: const EdgeInsets.all(0.0),
+  //       children: <Widget>[
+  //         new UserAccountsDrawerHeader(
+  //             accountName: new Text("Place Holder"),
+  //             accountEmail:
+  //                 new Text("placeholde@email.com"), // ("${newUser.email}"),
+  //             currentAccountPicture: new CircleAvatar(
+  //               backgroundColor: Colors.red,
+  //             )),
+  //         new ListTile(
+  //           title: new Text('Settings'),
+  //           trailing: new Icon(Icons.settings),
+  //           onTap: () {
+  //             debugPrint("Settings");
+  //           },
+  //         ),
+  //         new ListTile(
+  //           title: new Text('FAQs'),
+  //           trailing: new Icon(Icons.question_answer),
+  //           onTap: () {
+  //             debugPrint("FAQs");
+  //           },
+  //         ),
+  //         new ListTile(
+  //           title: new Text('Terms & Conditions'),
+  //           trailing: new Icon(Icons.list),
+  //           onTap: () {
+  //             debugPrint("T and C");
+  //           },
+  //         ),
+  //         new ListTile(
+  //           title: new Text('My Stocks'),
+  //           trailing: new Icon(Icons.library_books),
+  //           onTap: () {
+  //             debugPrint("My Stocks");
+  //           },
+  //         ),
+  //         new ListTile(
+  //           title: new Text('Logout'),
+  //           trailing: new Icon(Icons.logout),
+  //           onTap: () async {
+  //             _auth.signOut();
+  //             debugPrint('logout');
+  //           },
+  //         ),
+  //         new ListTile(
+  //           title: new Text('Page Close'),
+  //           trailing: new Icon(Icons.close),
+  //           onTap: () => Navigator.of(context).pop(),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +119,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         child: !isloggedin
-            ? CircularProgressIndicator()
+            ? Center(child: CircularProgressIndicator())
             : Column(
                 children: <Widget>[
                   SizedBox(height: 40.0),
@@ -139,7 +197,149 @@ class _HomePageState extends State<HomePage> {
           ],
           onTap: (int index) {
             if (index == 4) {
-              signOut();
+              showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.0),
+                          topRight: Radius.circular(16.0),
+                        ),
+                        color: Color(0xff232f34),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            height: 36,
+                          ),
+                          SizedBox(
+                              height: (56 * 6).toDouble(),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(16.0),
+                                      topRight: Radius.circular(16.0),
+                                    ),
+                                    color: Color(0xff344955),
+                                  ),
+                                  child: Stack(
+                                    alignment: Alignment(0, 0),
+                                    overflow: Overflow.visible,
+                                    children: <Widget>[
+                                      Positioned(
+                                        top: -36,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(50)),
+                                              border: Border.all(
+                                                  color: Color(0xff232f34),
+                                                  width: 10)),
+                                          child: Center(
+                                            child: ClipOval(
+                                              child: Image.network(
+                                                "https://i.stack.imgur.com/S11YG.jpg?s=64&g=1",
+                                                fit: BoxFit.cover,
+                                                height: 36,
+                                                width: 36,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        child: ListView(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          children: <Widget>[
+                                            ListTile(
+                                              title: Text(
+                                                "Inbox",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              leading: Icon(
+                                                Icons.inbox,
+                                                color: Colors.white,
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                            ListTile(
+                                              title: Text(
+                                                "Starred",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              leading: Icon(
+                                                Icons.star_border,
+                                                color: Colors.white,
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                            ListTile(
+                                              title: Text(
+                                                "Sent",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              leading: Icon(
+                                                Icons.send,
+                                                color: Colors.white,
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                            ListTile(
+                                              title: Text(
+                                                "Trash",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              leading: Icon(
+                                                Icons.delete_outline,
+                                                color: Colors.white,
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                            ListTile(
+                                              title: Text(
+                                                "Spam",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              leading: Icon(
+                                                Icons.error,
+                                                color: Colors.white,
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                            ListTile(
+                                              title: Text(
+                                                "Drafts",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              leading: Icon(
+                                                Icons.mail_outline,
+                                                color: Colors.white,
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ))),
+                          Container(
+                            height: 56,
+                            color: Color(0xff4a6572),
+                          )
+                        ],
+                      ),
+                    );
+                  });
             } else {
               debugPrint("Tapped Item: $index");
             }
@@ -186,4 +386,142 @@ class _HomePageState extends State<HomePage> {
 //       ),
 //     );
 //   }
+// }
+
+// showMenu(context) {
+//   showModalBottomSheet(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return Container(
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.only(
+//               topLeft: Radius.circular(16.0),
+//               topRight: Radius.circular(16.0),
+//             ),
+//             color: Color(0xff232f34),
+//           ),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             crossAxisAlignment: CrossAxisAlignment.end,
+//             children: <Widget>[
+//               Container(
+//                 height: 36,
+//               ),
+//               SizedBox(
+//                   height: (56 * 6).toDouble(),
+//                   child: Container(
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.only(
+//                           topLeft: Radius.circular(16.0),
+//                           topRight: Radius.circular(16.0),
+//                         ),
+//                         color: Color(0xff344955),
+//                       ),
+//                       child: Stack(
+//                         alignment: Alignment(0, 0),
+//                         overflow: Overflow.visible,
+//                         children: <Widget>[
+//                           Positioned(
+//                             top: -36,
+//                             child: Container(
+//                               decoration: BoxDecoration(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(50)),
+//                                   border: Border.all(
+//                                       color: Color(0xff232f34), width: 10)),
+//                               child: Center(
+//                                 child: ClipOval(
+//                                   child: Image.network(
+//                                     "https://i.stack.imgur.com/S11YG.jpg?s=64&g=1",
+//                                     fit: BoxFit.cover,
+//                                     height: 36,
+//                                     width: 36,
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           Positioned(
+//                             child: ListView(
+//                               physics: NeverScrollableScrollPhysics(),
+//                               children: <Widget>[
+//                                 ListTile(
+//                                   title: Text(
+//                                     "Inbox",
+//                                     style: TextStyle(color: Colors.white),
+//                                   ),
+//                                   leading: Icon(
+//                                     Icons.inbox,
+//                                     color: Colors.white,
+//                                   ),
+//                                   onTap: () {},
+//                                 ),
+//                                 ListTile(
+//                                   title: Text(
+//                                     "Starred",
+//                                     style: TextStyle(color: Colors.white),
+//                                   ),
+//                                   leading: Icon(
+//                                     Icons.star_border,
+//                                     color: Colors.white,
+//                                   ),
+//                                   onTap: () {},
+//                                 ),
+//                                 ListTile(
+//                                   title: Text(
+//                                     "Sent",
+//                                     style: TextStyle(color: Colors.white),
+//                                   ),
+//                                   leading: Icon(
+//                                     Icons.send,
+//                                     color: Colors.white,
+//                                   ),
+//                                   onTap: () {},
+//                                 ),
+//                                 ListTile(
+//                                   title: Text(
+//                                     "Trash",
+//                                     style: TextStyle(color: Colors.white),
+//                                   ),
+//                                   leading: Icon(
+//                                     Icons.delete_outline,
+//                                     color: Colors.white,
+//                                   ),
+//                                   onTap: () {},
+//                                 ),
+//                                 ListTile(
+//                                   title: Text(
+//                                     "Spam",
+//                                     style: TextStyle(color: Colors.white),
+//                                   ),
+//                                   leading: Icon(
+//                                     Icons.error,
+//                                     color: Colors.white,
+//                                   ),
+//                                   onTap: () {},
+//                                 ),
+//                                 ListTile(
+//                                   title: Text(
+//                                     "Drafts",
+//                                     style: TextStyle(color: Colors.white),
+//                                   ),
+//                                   leading: Icon(
+//                                     Icons.mail_outline,
+//                                     color: Colors.white,
+//                                   ),
+//                                   onTap: () {},
+//                                 ),
+//                               ],
+//                             ),
+//                           )
+//                         ],
+//                       ))),
+//               Container(
+//                 height: 56,
+//                 color: Color(0xff4a6572),
+//               )
+//             ],
+//           ),
+//         );
+//       });
 // }
