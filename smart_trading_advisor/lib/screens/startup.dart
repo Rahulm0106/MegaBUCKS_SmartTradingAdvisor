@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:smart_trading_advisor/screens/login.dart';
 import 'package:smart_trading_advisor/screens/signup.dart';
-// import 'package:authentification/Login.dart';
-// import 'SignUp.dart';
 
 class Start extends StatefulWidget {
   static const routeName = '/startup';
