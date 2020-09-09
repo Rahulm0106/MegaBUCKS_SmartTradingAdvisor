@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class BottomNav extends StatelessWidget {
   const BottomNav({
@@ -136,8 +139,9 @@ class BottomNav extends StatelessWidget {
                                               Icons.logout,
                                               color: Colors.black,
                                             ),
-                                            onTap: () {
+                                            onTap: () async {
                                               debugPrint("Logout");
+                                              _auth.signOut();
                                             },
                                           ),
                                         ],
