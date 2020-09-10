@@ -12,17 +12,17 @@ This repository contains the code for the 3rd Semester Project for [VIT Bhopal U
 * [GitHub Profie](https://github.com/kprakhar27/)
 
 ### Rajat Kaushik
-* Email ID - rajat.kaushik2019@vitbhopal.ac.in)
+* Email ID - rajat.kaushik2019@vitbhopal.ac.in
 * Registration No.: 19BAI10012
 * [GitHub Profie](https://github.com/kprakhar27/)
 
 ### Ashwin R
-* Email ID - ashwin.r2019@vitbhopal.ac.in)
+* Email ID - ashwin.r2019@vitbhopal.ac.in
 * Registration No.: 19BAI10012
 * [GitHub Profie](https://github.com/kprakhar27/)
 
 ### Faizan Mirza
-* Email ID - faizan.mirza2019@vitbhopal.ac.in)
+* Email ID - faizan.mirza2019@vitbhopal.ac.in
 * Registration No.: 19BAI10012
 * [GitHub Profie](https://github.com/kprakhar27/)
 
