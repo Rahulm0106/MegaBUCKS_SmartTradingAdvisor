@@ -3,6 +3,7 @@ import 'package:smart_trading_advisor/screens/home.dart';
 import 'package:smart_trading_advisor/screens/login.dart';
 import 'package:smart_trading_advisor/screens/signup.dart';
 import 'package:smart_trading_advisor/screens/startup.dart';
+import 'package:smart_trading_advisor/screens/thankyou.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (ctx) => LoginScreen(),
         HomePage.routeName: (ctx) => HomePage(),
         Start.routeName: (ctx) => Start(),
+        Thankyou.routeName: (ctx) => Thankyou(),
       },
     );
   }

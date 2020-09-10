@@ -3,6 +3,7 @@ import 'package:smart_trading_advisor/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_trading_advisor/screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smart_trading_advisor/screens/thankyou.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
@@ -174,7 +175,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
+                                      builder: (context) => Thankyou()));
                             }
                           } catch (e) {
                             showError(e);

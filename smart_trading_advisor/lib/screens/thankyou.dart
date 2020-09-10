@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smart_trading_advisor/assets/bottom_nav.dart';
-import 'package:smart_trading_advisor/assets/my_flutter_app_icons.dart';
 import 'package:smart_trading_advisor/screens/startup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomePage extends StatefulWidget {
-  static const routeName = '/home';
+class Thankyou extends StatefulWidget {
+  static const routeName = '/thankyou';
   @override
-  _HomePageState createState() => _HomePageState();
+  _ThankyouState createState() => _ThankyouState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ThankyouState extends State<Thankyou> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final db = Firestore.instance;
   FirebaseUser newUser;
@@ -25,8 +23,6 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
-
-  //Map fname;
 
   getUser() async {
     FirebaseUser firebaseUser = await _auth.currentUser();
@@ -54,18 +50,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Text("Dashboard", style: TextStyle(color: Colors.black)),
-        elevation: 0.0,
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(MyFlutterApp.image2vector),
-              onPressed: () => debugPrint("Tapped"))
-        ],
-      ),
       body: Container(
         child: !isloggedin
             ? Center(child: CircularProgressIndicator())
@@ -82,30 +66,33 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Container(
+                    alignment: Alignment.center,
                     child: Center(
-                      // child: RichText(
-                      //     text: TextSpan(
-                      //         text: 'Smart Trading \n',
-                      //         style: TextStyle(
-                      //             fontSize: 25.0,
-                      //             fontWeight: FontWeight.bold,
-                      //             color: Colors.black),
-                      //         children: <TextSpan>[
-                      //       TextSpan(
-                      //           text: '',
-                      //           style: TextStyle(
-                      //               fontSize: 30.0,
-                      //               fontWeight: FontWeight.bold,
-                      //               color: Color.fromRGBO(62, 72, 184, 1.0)))
-                      //     ])),
                       child: data(),
                     ),
                     padding: EdgeInsets.all(10),
                   ),
+                  SizedBox(
+                    height: 170,
+                  ),
+                  RaisedButton(
+                    padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                    onPressed: () async {
+                      _auth.signOut();
+                    },
+                    child: Text('Login',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold)),
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
                 ],
               ),
       ),
-      bottomNavigationBar: BottomNav(),
     );
   }
 
@@ -115,21 +102,41 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           Map<String, dynamic> documentFields = snapshot.data.data;
-          return RichText(
-              text: TextSpan(
-                  text: '${documentFields['first-name']}',
+          return Column(children: <Widget>[
+            Container(
+              child: Text('Hello',
                   style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  children: <TextSpan>[
-                TextSpan(
-                    text: '${documentFields['last-name']}',
-                    style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(62, 72, 184, 1.0)))
-              ]));
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+            ),
+            Container(
+              child: Text(
+                '${documentFields["first-name"]} ${documentFields["last-name"]}',
+                style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(62, 72, 184, 1.0)),
+              ),
+            ),
+            Container(
+              child: Text('thank you for signing up',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+            ),
+            Container(
+              child: Text('to start investing login again',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  )),
+            ),
+          ]);
         } else {
           return Text('Some Error');
         }
