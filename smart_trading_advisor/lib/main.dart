@@ -4,7 +4,6 @@ import 'package:smart_trading_advisor/screens/login.dart';
 import 'package:smart_trading_advisor/screens/signup.dart';
 import 'package:smart_trading_advisor/screens/startup.dart';
 
-// Sample Changes
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
