@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smart_trading_advisor/screens/startup.dart';
+import 'package:smart_trading_advisor/screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Thankyou extends StatefulWidget {
@@ -19,7 +19,7 @@ class _ThankyouState extends State<Thankyou> {
     _auth.onAuthStateChanged.listen((newUser) {
       if (newUser == null) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Start()));
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     });
   }
@@ -121,19 +121,25 @@ class _ThankyouState extends State<Thankyou> {
                     color: Color.fromRGBO(62, 72, 184, 1.0)),
               ),
             ),
+            SizedBox(
+              height: 10.0,
+            ),
             Container(
-              child: Text('thank you for signing up',
+              child: Text(
+                  'Welcome to Smart Trading App, Thank You for signing up!!!',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   )),
             ),
+            SizedBox(
+              height: 20.0,
+            ),
             Container(
-              child: Text('to start investing login again',
+              child: Text('Login again to get predictions...',
                   style: TextStyle(
                     fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
                     color: Colors.black,
                   )),
             ),
