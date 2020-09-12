@@ -46,12 +46,12 @@ class _StartState extends State<Start> {
               'Predict the future',
               style: TextStyle(color: Colors.black),
             ),
-            SizedBox(height: 30.0),
+            SizedBox(height: 75.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                    padding: EdgeInsets.only(left: 30, right: 30),
+                    padding: EdgeInsets.only(left: 45, right: 45),
                     onPressed: () async {
                       Navigator.push(
                           context,
@@ -70,9 +70,9 @@ class _StartState extends State<Start> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     color: Colors.black),
-                SizedBox(width: 50.0),
+                SizedBox(width: 10.0),
                 RaisedButton(
-                    padding: EdgeInsets.only(left: 30, right: 30),
+                    padding: EdgeInsets.only(left: 40, right: 40),
                     onPressed: () async {
                       Navigator.push(
                           context,
@@ -93,7 +93,26 @@ class _StartState extends State<Start> {
                     color: Colors.black),
               ],
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 125.0),
+            Column(children: <Widget>[
+              Container(
+                child: Text('DISCLAIMER:',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    )),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: Text(
+                    'Stock market investments are subject to market risks. Read all Terms and Conditions carefully!',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.black,
+                    )),
+              ),
+            ])
             // SignInButton(
             //   Buttons.Google,
             //   text: "Sign up with Google",
