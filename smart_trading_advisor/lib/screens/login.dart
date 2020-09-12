@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               onSaved: (value) => _email = value),
                         ),
                         SizedBox(
-                          height: 20.0,
+                          height: 10.0,
                         ),
                         Container(
                           child: TextFormField(
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               obscureText: _isHidden,
                               onSaved: (value) => _password = value),
                         ),
-                        SizedBox(height: 20.0),
+                        SizedBox(height: 10.0),
                         Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -211,6 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 10.0,
                 ),
                 GestureDetector(
                   child: Text("Don't have an acoount?"),

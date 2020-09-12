@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  // ignore: must_call_super
   void initState() {
     this.checkAuthentication();
     this.getUser();

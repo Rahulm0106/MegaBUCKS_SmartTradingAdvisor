@@ -80,7 +80,7 @@ class _StartState extends State<Start> {
                               builder: (context) => SignupScreen()));
                     },
                     child: Text(
-                      'REGISTER',
+                      'Sign Up',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
