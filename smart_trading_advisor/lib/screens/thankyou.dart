@@ -74,7 +74,7 @@ class _ThankyouState extends State<Thankyou> {
                     padding: EdgeInsets.all(10),
                   ),
                   SizedBox(
-                    height: 170,
+                    height: 140,
                   ),
                   RaisedButton(
                     padding: EdgeInsets.fromLTRB(70, 10, 70, 10),

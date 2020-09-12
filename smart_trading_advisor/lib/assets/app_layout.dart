@@ -1,6 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_trading_advisor/extras/faqs.dart';
+import 'package:smart_trading_advisor/extras/settings.dart';
+import 'package:smart_trading_advisor/extras/terms.dart';
 import 'package:smart_trading_advisor/screens/addstocks.dart';
+import 'package:smart_trading_advisor/screens/favorites.dart';
+import 'package:smart_trading_advisor/screens/home.dart';
+import 'package:smart_trading_advisor/screens/stocklist.dart';
 import 'my_flutter_app_icons.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -116,6 +122,11 @@ class BottomNav extends StatelessWidget {
                                             ),
                                             onTap: () {
                                               debugPrint("Settings");
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Settings()));
                                             },
                                           ),
                                           ListTile(
@@ -130,6 +141,11 @@ class BottomNav extends StatelessWidget {
                                             ),
                                             onTap: () {
                                               debugPrint("FAQ");
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          FAQs()));
                                             },
                                           ),
                                           ListTile(
@@ -144,6 +160,11 @@ class BottomNav extends StatelessWidget {
                                             ),
                                             onTap: () {
                                               debugPrint("T&C");
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Terms()));
                                             },
                                           ),
                                           ListTile(
@@ -177,6 +198,15 @@ class BottomNav extends StatelessWidget {
           } else if (index == 3) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => AddStocks()));
+          } else if (index == 2) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+          } else if (index == 1) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Favorites()));
+          } else if (index == 0) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyStocksList()));
           } else {
             debugPrint("Tapped Item: $index");
           }
