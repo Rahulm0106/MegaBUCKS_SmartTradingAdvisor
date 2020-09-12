@@ -1,7 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_trading_advisor/screens/addstocks.dart';
+import 'my_flutter_app_icons.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+
+Widget appBarBuilder(String text) {
+  return AppBar(
+    iconTheme: IconThemeData(color: Colors.black),
+    title: Text(text, style: TextStyle(color: Colors.black)),
+    elevation: 0.0,
+    centerTitle: false,
+    backgroundColor: Colors.white,
+    actions: <Widget>[
+      IconButton(
+          icon: Icon(MyFlutterApp.image2vector),
+          onPressed: () => debugPrint("Tapped"))
+    ],
+  );
+}
 
 class BottomNav extends StatelessWidget {
   const BottomNav({
@@ -157,6 +174,9 @@ class BottomNav extends StatelessWidget {
                     ),
                   );
                 });
+          } else if (index == 3) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AddStocks()));
           } else {
             debugPrint("Tapped Item: $index");
           }

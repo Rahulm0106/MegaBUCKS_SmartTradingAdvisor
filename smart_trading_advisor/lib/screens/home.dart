@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smart_trading_advisor/assets/bottom_nav.dart';
-import 'package:smart_trading_advisor/assets/my_flutter_app_icons.dart';
+import 'package:smart_trading_advisor/assets/app_layout.dart';
 import 'package:smart_trading_advisor/screens/startup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -25,8 +24,6 @@ class _HomePageState extends State<HomePage> {
       }
     });
   }
-
-  //Map fname;
 
   getUser() async {
     FirebaseUser firebaseUser = await _auth.currentUser();
@@ -55,18 +52,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Text("Dashboard", style: TextStyle(color: Colors.black)),
-        elevation: 0.0,
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(MyFlutterApp.image2vector),
-              onPressed: () => debugPrint("Tapped"))
-        ],
-      ),
+      appBar: appBarBuilder("Dashboard"),
       body: Container(
         child: !isloggedin
             ? Center(child: CircularProgressIndicator())
