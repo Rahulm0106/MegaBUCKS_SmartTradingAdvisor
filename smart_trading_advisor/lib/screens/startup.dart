@@ -59,7 +59,7 @@ class _StartState extends State<Start> {
                               builder: (context) => LoginScreen()));
                     },
                     child: Text(
-                      'LOGIN',
+                      'Login',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _StartState extends State<Start> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     color: Colors.black),
-                SizedBox(width: 20.0),
+                SizedBox(width: 50.0),
                 RaisedButton(
                     padding: EdgeInsets.only(left: 30, right: 30),
                     onPressed: () async {
