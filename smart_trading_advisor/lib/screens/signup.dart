@@ -166,11 +166,15 @@ class _SignupScreenState extends State<SignupScreen> {
                           }
                         }
                       },
-                      child: Text('Sign Up',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold)),
+                      child: Container(
+                        child: Text('Sign Up',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold)),
+                        width: 100,
+                        alignment: Alignment.center,
+                      ),
                       color: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
