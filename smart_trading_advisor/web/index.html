@@ -29,5 +29,29 @@
     }
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyB00n2UI9dP4fKyrmrdmo0Owc_VEc2tN9I",
+    authDomain: "smart-trading-advisor.firebaseapp.com",
+    databaseURL: "https://smart-trading-advisor.firebaseio.com",
+    projectId: "smart-trading-advisor",
+    storageBucket: "smart-trading-advisor.appspot.com",
+    messagingSenderId: "764496767370",
+    appId: "1:764496767370:web:c8c3c8e4b69500d3270073",
+    measurementId: "G-Y3DBNF2H95"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
 </body>
 </html>

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_trading_advisor/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_trading_advisor/screens/login.dart';
-//import 'package:smart_trading_advisor/screens/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smart_trading_advisor/screens/thankyou.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
@@ -12,9 +13,10 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  final db = Firestore.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _email, _password;
+  String _email, _password, _fname, _lname;
 
   checkAuthentication() async {
     _auth.onAuthStateChanged.listen((user) async {
@@ -31,29 +33,14 @@ class _SignupScreenState extends State<SignupScreen> {
     this.checkAuthentication();
   }
 
-  showError(String errormessage) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('ERROR'),
-            content: Text(errormessage),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'))
-            ],
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        //resizeToAvoidBottomPadding: false,
         body: SingleChildScrollView(
       child: Container(
+        padding:
+            EdgeInsets.only(top: 0.0, right: 20.0, left: 20.0, bottom: 0.0),
         child: Column(
           children: <Widget>[
             Container(
@@ -70,20 +57,32 @@ class _SignupScreenState extends State<SignupScreen> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    // Container(
-                    //   child: TextFormField(
-                    //       validator: (String value) {
-                    //         if (value.isEmpty) {
-                    //           return 'Enter Name';
-                    //         }
-                    //         return null;
-                    //       },
-                    //       decoration: InputDecoration(
-                    //         labelText: 'Name',
-                    //         prefixIcon: Icon(Icons.person),
-                    //       ),
-                    //       onSaved: (value) => _name = value),
-                    // ),
+                    Container(
+                      child: TextFormField(
+                          validator: (value) {
+                            if (value == null)
+                              return 'Enter First Name';
+                            else
+                              return null;
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'First Name',
+                              prefixIcon: Icon(Icons.person)),
+                          onSaved: (value) => _fname = value),
+                    ),
+                    Container(
+                      child: TextFormField(
+                          validator: (value) {
+                            if (value == null)
+                              return 'Enter Last Name';
+                            else
+                              return null;
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'Last Name',
+                              prefixIcon: Icon(Icons.person)),
+                          onSaved: (value) => _lname = value),
+                    ),
                     Container(
                       child: TextFormField(
                           validator: (value) {
@@ -96,25 +95,39 @@ class _SignupScreenState extends State<SignupScreen> {
                               return null;
                           },
                           decoration: InputDecoration(
-                              labelText: 'Email',
-                              prefixIcon: Icon(Icons.email)),
+                              hintText: 'Email', prefixIcon: Icon(Icons.email)),
                           onSaved: (value) => _email = value),
                     ),
                     Container(
                       child: TextFormField(
                           validator: (String value) {
                             if (value.isEmpty || value.length < 8) {
-                              return 'invalid password';
+                              return 'Invalid Password';
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            labelText: 'Password',
+                            hintText: 'Password',
                             prefixIcon: Icon(Icons.lock),
                           ),
                           obscureText: true,
                           onSaved: (value) => _password = value),
                     ),
+                    // Container(
+                    //   child: TextFormField(
+                    //       validator: (String value) {
+                    //         if (_confirm != _password) {
+                    //           return 'Type correct password';
+                    //         }
+                    //         return null;
+                    //       },
+                    //       decoration: InputDecoration(
+                    //         labelText: 'Confirm Password',
+                    //         prefixIcon: Icon(Icons.lock),
+                    //       ),
+                    //       obscureText: true,
+                    //       onSaved: (value) => _confirm = value),
+                    // ),
                     SizedBox(height: 20),
                     RaisedButton(
                       padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
@@ -127,24 +140,41 @@ class _SignupScreenState extends State<SignupScreen> {
                                 await _auth.createUserWithEmailAndPassword(
                                     email: _email, password: _password);
                             if (newUser != null) {
-                              // UserUpdateInfo updateuser = UserUpdateInfo();
-                              // updateuser.displayName = _name;
-                              // newUser.updateProfile(updateuser);
+                              var firebaseUser = await _auth.currentUser();
+                              data(firebaseUser);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
+                                      builder: (context) => Thankyou()));
                             }
                           } catch (e) {
-                            showError(e.errormessage);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Error!!!'),
+                                    content: Text('$e'),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('OK'))
+                                    ],
+                                  );
+                                });
                           }
                         }
                       },
-                      child: Text('SignUp',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold)),
+                      child: Container(
+                        child: Text('Sign Up',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold)),
+                        width: 100,
+                        alignment: Alignment.center,
+                      ),
                       color: Colors.black,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -153,6 +183,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   ],
                 ),
               ),
+            ),
+            SizedBox(
+              height: 10.0,
             ),
             GestureDetector(
               child: Text('Already have an Account?'),
@@ -165,5 +198,15 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     ));
+  }
+
+  void data(FirebaseUser firebaseUser) {
+    db.collection("user").document(firebaseUser.uid).setData({
+      "first-name": _fname,
+      "last-name": _lname,
+      "email": _email,
+    }).then((_) {
+      debugPrint("success!");
+    });
   }
 }
