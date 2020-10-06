@@ -19,12 +19,12 @@ This repository contains the code for the 3rd Semester Project for [VIT Bhopal U
 ### Ashwin R
 * Email ID - ashwin.r2019@vitbhopal.ac.in
 * Registration No.: 19BAI10012
-* [GitHub Profie](https://github.com/kprakhar27/)
+* [GitHub Profie](https://github.com/#/)
 
 ### Faizan Mirza
 * Email ID - faizan.mirza2019@vitbhopal.ac.in
 * Registration No.: 19BAI10012
-* [GitHub Profie](https://github.com/kprakhar27/)
+* [GitHub Profie](https://github.com/#/)
 
 ## Guide
 
