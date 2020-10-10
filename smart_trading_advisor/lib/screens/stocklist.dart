@@ -52,9 +52,32 @@ class _MyStocksListState extends State<MyStocksList> {
   Widget _stockList(BuildContext context, DocumentSnapshot document) {
     return ListTile(
       leading: IconButton(
-        icon: Icon(Icons.analytics_outlined),
-        onPressed: () {},
-      ),
+          icon: Icon(Icons.analytics_outlined),
+          onPressed: () async {
+            try {
+              if (newUser != null) {
+                var firebaseUser = await _auth.currentUser();
+                data(firebaseUser, document['stock-symbol'],
+                    document['stock-name']);
+              }
+            } catch (e) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Error!!!'),
+                      content: Text('$e'),
+                      actions: <Widget>[
+                        FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'))
+                      ],
+                    );
+                  });
+            }
+          }),
       title: Text(document['stock-name']),
       subtitle: Text(document['stock-symbol']),
       trailing: IconButton(
@@ -67,27 +90,58 @@ class _MyStocksListState extends State<MyStocksList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: appBarBuilder("My Stocks List"),
-        bottomNavigationBar: BottomNav(),
-        body: StreamBuilder(
-            stream: db
-                .collection('user')
-                .document(newUser.uid)
-                .collection('stocklist')
-                .snapshots(),
-            //print an integer every 2secs, 10 times
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Text("Loading..");
-              }
-              return ListView.builder(
-                // itemExtent: 50.0,
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) {
-                  return _stockList(context, snapshot.data.documents[index]);
-                },
-              );
-            }));
+    return !isloggedin
+        ? Center(child: CircularProgressIndicator())
+        : Scaffold(
+            appBar: appBarBuilder("My Stocks List"),
+            bottomNavigationBar: BottomNav(),
+            body: StreamBuilder(
+                stream: db
+                    .collection('user')
+                    .document(newUser.uid)
+                    .collection('stocklist')
+                    .snapshots(),
+                //print an integer every 2secs, 10 times
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Text("Loading..");
+                  }
+                  return ListView.builder(
+                    // itemExtent: 50.0,
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (context, index) {
+                      return _stockList(
+                          context, snapshot.data.documents[index]);
+                    },
+                  );
+                }));
+  }
+
+  void data(FirebaseUser firebaseUser, String _symbol, String _stockname) {
+    db
+        .collection("user")
+        .document(firebaseUser.uid)
+        .collection("dashboard")
+        .document(_symbol)
+        .setData({
+      "stock-name": _stockname,
+      "stock-symbol": _symbol,
+    }).then((_) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Success!!!'),
+              content: Text('Successfully added stock to dashboard'),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('OK'))
+              ],
+            );
+          });
+    });
   }
 }
