@@ -45,31 +45,31 @@ class BottomNav extends StatelessWidget {
                 Icons.library_books,
                 color: Colors.white,
               ),
-              title: Text("Stocks")),
+              label: "Stocks"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.star,
                 color: Colors.white,
               ),
-              title: Text("Fav")),
+              label: "Fav"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
                 color: Colors.white,
               ),
-              title: Text("Home")),
+              label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.add,
                 color: Colors.white,
               ),
-              title: Text("Add")),
+              label: "Add"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.menu,
                 color: Colors.white,
               ),
-              title: Text("Menu"))
+              label: "Menu")
         ],
         onTap: (int index) {
           if (index == 4) {

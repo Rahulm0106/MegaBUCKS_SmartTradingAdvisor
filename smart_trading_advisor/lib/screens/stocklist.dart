@@ -12,7 +12,7 @@ class MyStocksList extends StatefulWidget {
 
 class _MyStocksListState extends State<MyStocksList> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final db = Firestore.instance;
+  Firestore db = Firestore.instance;
   FirebaseUser newUser;
   bool isloggedin = false;
 
@@ -43,33 +43,51 @@ class _MyStocksListState extends State<MyStocksList> {
   }
 
   @override
-  // ignore: must_call_super
   void initState() {
+    super.initState();
     this.checkAuthentication();
     this.getUser();
+  }
+
+  Widget _stockList(BuildContext context, DocumentSnapshot document) {
+    return ListTile(
+      leading: IconButton(
+        icon: Icon(Icons.analytics_outlined),
+        onPressed: () {},
+      ),
+      title: Text(document['stock-name']),
+      subtitle: Text(document['stock-symbol']),
+      trailing: IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {},
+      ),
+      onTap: () {},
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarBuilder("My Stocks List"),
-      bottomNavigationBar: BottomNav(),
-      body: !isloggedin
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: <Widget>[
-                SizedBox(height: 40.0),
-                Container(
-                  height: 300,
-                  child: Image(
-                    image: AssetImage("images/logo.png"),
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ],
-            ),
-    );
+        appBar: appBarBuilder("My Stocks List"),
+        bottomNavigationBar: BottomNav(),
+        body: StreamBuilder(
+            stream: db
+                .collection('user')
+                .document(newUser.uid)
+                .collection('stocklist')
+                .snapshots(),
+            //print an integer every 2secs, 10 times
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Text("Loading..");
+              }
+              return ListView.builder(
+                // itemExtent: 50.0,
+                itemCount: snapshot.data.documents.length,
+                itemBuilder: (context, index) {
+                  return _stockList(context, snapshot.data.documents[index]);
+                },
+              );
+            }));
   }
 }

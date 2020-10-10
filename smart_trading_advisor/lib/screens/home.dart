@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  // ignore: must_call_super
   void initState() {
+    super.initState();
     this.checkAuthentication();
     this.getUser();
   }
@@ -70,21 +70,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     child: Center(
-                      // child: RichText(
-                      //     text: TextSpan(
-                      //         text: 'Smart Trading \n',
-                      //         style: TextStyle(
-                      //             fontSize: 25.0,
-                      //             fontWeight: FontWeight.bold,
-                      //             color: Colors.black),
-                      //         children: <TextSpan>[
-                      //       TextSpan(
-                      //           text: '',
-                      //           style: TextStyle(
-                      //               fontSize: 30.0,
-                      //               fontWeight: FontWeight.bold,
-                      //               color: Color.fromRGBO(62, 72, 184, 1.0)))
-                      //     ])),
                       child: data(),
                     ),
                     padding: EdgeInsets.all(10),
