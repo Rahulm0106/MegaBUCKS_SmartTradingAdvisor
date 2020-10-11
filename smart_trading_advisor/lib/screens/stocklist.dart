@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_trading_advisor/analysis/analysis.dart';
 import 'package:smart_trading_advisor/assets/app_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -82,9 +83,57 @@ class _MyStocksListState extends State<MyStocksList> {
       subtitle: Text(document['stock-symbol']),
       trailing: IconButton(
         icon: Icon(Icons.delete),
-        onPressed: () {},
+        onPressed: () async {
+          try {
+            if (newUser != null) {
+              var firebaseUser = await _auth.currentUser();
+              delete(firebaseUser, document['stock-symbol']);
+            }
+          } catch (e) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Error!!!'),
+                    content: Text('$e'),
+                    actions: <Widget>[
+                      FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('OK'))
+                    ],
+                  );
+                });
+          }
+        },
       ),
-      onTap: () {},
+      onTap: () async {
+        try {
+          if (newUser != null) {
+            var firebaseUser = await _auth.currentUser();
+            analysis(firebaseUser, document['stock-symbol']);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Analysis()));
+          }
+        } catch (e) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Error!!!'),
+                  content: Text('$e'),
+                  actions: <Widget>[
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('OK'))
+                  ],
+                );
+              });
+        }
+      },
     );
   }
 
@@ -101,10 +150,9 @@ class _MyStocksListState extends State<MyStocksList> {
                     .document(newUser.uid)
                     .collection('stocklist')
                     .snapshots(),
-                //print an integer every 2secs, 10 times
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Text("Loading..");
+                    return Text("No Stocks");
                   }
                   return ListView.builder(
                     // itemExtent: 50.0,
@@ -115,6 +163,29 @@ class _MyStocksListState extends State<MyStocksList> {
                     },
                   );
                 }));
+  }
+
+  void delete(FirebaseUser firebaseUser, String _symbol) {
+    db
+        .collection("user")
+        .document(firebaseUser.uid)
+        .collection("stocklist")
+        .document(_symbol)
+        .delete();
+    db
+        .collection("user")
+        .document(firebaseUser.uid)
+        .collection("dashboard")
+        .document(_symbol)
+        .delete();
+  }
+
+  void analysis(FirebaseUser firebaseUser, String _symbol) {
+    db.collection("user").document(firebaseUser.uid).updateData({
+      "analysis-stock": _symbol,
+    }).then((_) {
+      debugPrint("success!");
+    });
   }
 
   void data(FirebaseUser firebaseUser, String _symbol, String _stockname) {

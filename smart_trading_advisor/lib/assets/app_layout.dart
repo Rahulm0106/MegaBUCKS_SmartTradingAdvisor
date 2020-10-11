@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_trading_advisor/extras/faqs.dart';
-import 'package:smart_trading_advisor/extras/settings.dart';
+import 'package:smart_trading_advisor/extras/profile.dart';
 import 'package:smart_trading_advisor/extras/terms.dart';
 import 'package:smart_trading_advisor/screens/addstocks.dart';
 import 'package:smart_trading_advisor/screens/favorites.dart';
@@ -112,21 +112,21 @@ class BottomNav extends StatelessWidget {
                                         children: <Widget>[
                                           ListTile(
                                             title: Text(
-                                              "Settings",
+                                              "Profile",
                                               style: TextStyle(
                                                   color: Colors.black),
                                             ),
                                             leading: Icon(
-                                              Icons.settings,
+                                              Icons.person,
                                               color: Colors.black,
                                             ),
                                             onTap: () {
-                                              debugPrint("Settings");
+                                              debugPrint("Profile");
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          Settings()));
+                                                          Profile()));
                                             },
                                           ),
                                           ListTile(

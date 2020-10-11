@@ -37,8 +37,10 @@ def stocks():
 
     # make series for plotting purpose
     forecasted_series = pd.Series(forecasted_values, index=index_forecasted)
+
+    r=forecasted_series.to_dict()
            
-    return forecasted_series
+    return r
 
 if __name__ == '__main__':
     app.run()

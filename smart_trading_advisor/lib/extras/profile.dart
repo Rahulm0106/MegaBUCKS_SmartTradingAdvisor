@@ -4,13 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smart_trading_advisor/screens/home.dart';
 
-class Settings extends StatefulWidget {
-  static const routeName = '/settings';
+class Profile extends StatefulWidget {
+  static const routeName = '/profile';
   @override
-  _SettingsState createState() => _SettingsState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _SettingsState extends State<Settings> {
+class _ProfileState extends State<Profile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final db = Firestore.instance;
   FirebaseUser newUser;
@@ -52,7 +52,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarBuilder("Settings"),
+      appBar: appBarBuilder("Profile"),
       bottomNavigationBar: BottomNav(),
       body: !isloggedin
           ? Center(child: CircularProgressIndicator())
