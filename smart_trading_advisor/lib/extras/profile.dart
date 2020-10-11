@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_trading_advisor/assets/app_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:smart_trading_advisor/screens/home.dart';
+import 'package:smart_trading_advisor/screens/startup.dart';
 
 class Profile extends StatefulWidget {
   static const routeName = '/profile';
@@ -20,7 +20,7 @@ class _ProfileState extends State<Profile> {
     _auth.onAuthStateChanged.listen((newUser) {
       if (newUser == null) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => Start()));
       }
     });
   }
@@ -43,8 +43,8 @@ class _ProfileState extends State<Profile> {
   }
 
   @override
-  // ignore: must_call_super
   void initState() {
+    super.initState();
     this.checkAuthentication();
     this.getUser();
   }
@@ -52,24 +52,60 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarBuilder("Profile"),
-      bottomNavigationBar: BottomNav(),
-      body: !isloggedin
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: <Widget>[
-                SizedBox(height: 40.0),
-                Container(
-                  height: 300,
-                  child: Image(
-                    image: AssetImage("images/logo.png"),
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.contain,
+      appBar: appBarBuilder("Dashboard"),
+      body: Container(
+        child: !isloggedin
+            ? Center(child: CircularProgressIndicator())
+            : Column(
+                children: <Widget>[
+                  SizedBox(height: 40.0),
+                  Container(
+                    height: 300,
+                    child: Image(
+                      image: AssetImage("images/logo.png"),
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                  Container(
+                    child: Center(
+                      child: data(),
+                    ),
+                    padding: EdgeInsets.all(10),
+                  ),
+                ],
+              ),
+      ),
+      bottomNavigationBar: BottomNav(),
+    );
+  }
+
+  StreamBuilder<DocumentSnapshot> data() {
+    return StreamBuilder(
+      stream: db.collection('user').document(newUser.uid).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          Map<String, dynamic> documentFields = snapshot.data.data;
+          return RichText(
+              text: TextSpan(
+                  text: '${documentFields['first-name']}',
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  children: <TextSpan>[
+                TextSpan(
+                    text: '${documentFields['last-name']}',
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(62, 72, 184, 1.0)))
+              ]));
+        } else {
+          return Text('Some Error');
+        }
+      },
     );
   }
 }
