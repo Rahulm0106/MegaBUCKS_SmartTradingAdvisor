@@ -111,10 +111,14 @@ class _MyStocksListState extends State<MyStocksList> {
       onTap: () async {
         try {
           if (newUser != null) {
-            var firebaseUser = await _auth.currentUser();
-            analysis(firebaseUser, document['stock-symbol']);
+            // var firebaseUser = await _auth.currentUser();
+            // analysis(firebaseUser, document['stock-symbol']);
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Analysis()));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Analysis(
+                          stockanalysis: document['stock-symbol'],
+                        )));
           }
         } catch (e) {
           showDialog(
@@ -180,13 +184,13 @@ class _MyStocksListState extends State<MyStocksList> {
         .delete();
   }
 
-  void analysis(FirebaseUser firebaseUser, String _symbol) {
-    db.collection("user").document(firebaseUser.uid).updateData({
-      "analysis-stock": _symbol,
-    }).then((_) {
-      debugPrint("success!");
-    });
-  }
+  // void analysis(FirebaseUser firebaseUser, String _symbol) {
+  //   db.collection("user").document(firebaseUser.uid).updateData({
+  //     "analysis-stock": _symbol,
+  //   }).then((_) {
+  //     String _analysisstock = _symbol;
+  //   });
+  // }
 
   void data(FirebaseUser firebaseUser, String _symbol, String _stockname) {
     db

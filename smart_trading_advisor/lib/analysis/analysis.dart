@@ -3,18 +3,40 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_trading_advisor/assets/app_layout.dart';
 import 'package:smart_trading_advisor/start/startup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class Analysis extends StatefulWidget {
   static const routeName = '/analysis';
+  final String stockanalysis;
+  Analysis({Key key, @required this.stockanalysis}) : super(key: key);
+
   @override
-  _AnalysisState createState() => _AnalysisState();
+  _AnalysisState createState() => _AnalysisState(stockanalysis);
 }
 
 class _AnalysisState extends State<Analysis> {
+  String stockanalysis;
+  _AnalysisState(this.stockanalysis);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final db = Firestore.instance;
   FirebaseUser newUser;
   bool isloggedin = false;
+  var jsonResponse;
+
+  Future<void> getQuotes() async {
+    String url = "http://10.0.2.2:500/api?Symbol=$stockanalysis";
+    http.Response response = await http.get(url);
+    if (response.statusCode == 200) {
+      setState(() {
+        jsonResponse = convert.jsonDecode(response.body);
+      });
+      print(jsonResponse);
+    } else {
+      jsonResponse = response.statusCode;
+      print("Request failed with status: ${response.statusCode}");
+    }
+  }
 
   checkAuthentication() async {
     _auth.onAuthStateChanged.listen((newUser) {
@@ -70,7 +92,27 @@ class _AnalysisState extends State<Analysis> {
                   ),
                   Container(
                     child: Center(
-                      child: data(),
+                      child: RichText(
+                          text: TextSpan(
+                        text: stockanalysis,
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      )),
+                    ),
+                    padding: EdgeInsets.all(10),
+                  ),
+                  Container(
+                    child: Center(
+                      child: RichText(
+                          text: TextSpan(
+                        text: jsonResponse,
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      )),
                     ),
                     padding: EdgeInsets.all(10),
                   ),
@@ -78,34 +120,6 @@ class _AnalysisState extends State<Analysis> {
               ),
       ),
       bottomNavigationBar: BottomNav(),
-    );
-  }
-
-  StreamBuilder<DocumentSnapshot> data() {
-    return StreamBuilder(
-      stream: db.collection('user').document(newUser.uid).snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Map<String, dynamic> documentFields = snapshot.data.data;
-          return RichText(
-              text: TextSpan(
-                  text: '${documentFields['first-name']}',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  children: <TextSpan>[
-                TextSpan(
-                    text: '${documentFields['last-name']}',
-                    style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(62, 72, 184, 1.0)))
-              ]));
-        } else {
-          return Text('Some Error');
-        }
-      },
     );
   }
 }
