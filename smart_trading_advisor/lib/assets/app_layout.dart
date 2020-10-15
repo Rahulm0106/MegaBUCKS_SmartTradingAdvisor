@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_trading_advisor/extras/faqs.dart';
-import 'package:smart_trading_advisor/extras/settings.dart';
+import 'package:smart_trading_advisor/extras/profile.dart';
 import 'package:smart_trading_advisor/extras/terms.dart';
 import 'package:smart_trading_advisor/screens/addstocks.dart';
 import 'package:smart_trading_advisor/screens/favorites.dart';
@@ -45,31 +45,31 @@ class BottomNav extends StatelessWidget {
                 Icons.library_books,
                 color: Colors.white,
               ),
-              title: Text("Stocks")),
+              label: "Stocks"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.star,
                 color: Colors.white,
               ),
-              title: Text("Fav")),
+              label: "Fav"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
                 color: Colors.white,
               ),
-              title: Text("Home")),
+              label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.add,
                 color: Colors.white,
               ),
-              title: Text("Add")),
+              label: "Add"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.menu,
                 color: Colors.white,
               ),
-              title: Text("Menu"))
+              label: "Menu")
         ],
         onTap: (int index) {
           if (index == 4) {
@@ -112,21 +112,21 @@ class BottomNav extends StatelessWidget {
                                         children: <Widget>[
                                           ListTile(
                                             title: Text(
-                                              "Settings",
+                                              "Profile",
                                               style: TextStyle(
                                                   color: Colors.black),
                                             ),
                                             leading: Icon(
-                                              Icons.settings,
+                                              Icons.person,
                                               color: Colors.black,
                                             ),
                                             onTap: () {
-                                              debugPrint("Settings");
+                                              debugPrint("Profile");
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          Settings()));
+                                                          Profile()));
                                             },
                                           ),
                                           ListTile(

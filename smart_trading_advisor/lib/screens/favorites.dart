@@ -54,22 +54,58 @@ class _FavoritesState extends State<Favorites> {
     return Scaffold(
       appBar: appBarBuilder("Favorites"),
       bottomNavigationBar: BottomNav(),
-      body: !isloggedin
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: <Widget>[
-                SizedBox(height: 40.0),
-                Container(
-                  height: 300,
-                  child: Image(
-                    image: AssetImage("images/logo.png"),
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.contain,
+      body: Container(
+        child: !isloggedin
+            ? Center(child: CircularProgressIndicator())
+            : Column(
+                children: <Widget>[
+                  SizedBox(height: 40.0),
+                  Container(
+                    height: 300,
+                    child: Image(
+                      image: AssetImage("images/logo.png"),
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                  Container(
+                    child: Center(
+                      child: data(),
+                    ),
+                    padding: EdgeInsets.all(10),
+                  ),
+                ],
+              ),
+      ),
+    );
+  }
+
+  StreamBuilder<DocumentSnapshot> data() {
+    return StreamBuilder(
+      stream: db.collection('user').document(newUser.uid).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          Map<String, dynamic> documentFields = snapshot.data.data;
+          return RichText(
+              text: TextSpan(
+                  text: '${documentFields['first-name']}',
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  children: <TextSpan>[
+                TextSpan(
+                    text: '${documentFields['last-name']}',
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(62, 72, 184, 1.0)))
+              ]));
+        } else {
+          return Text('Some Error');
+        }
+      },
     );
   }
 }
