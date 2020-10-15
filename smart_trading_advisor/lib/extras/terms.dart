@@ -56,20 +56,74 @@ class _TermsState extends State<Terms> {
       bottomNavigationBar: BottomNav(),
       body: !isloggedin
           ? Center(child: CircularProgressIndicator())
-          : Column(
-              children: <Widget>[
-                SizedBox(height: 40.0),
-                Container(
-                  height: 300,
-                  child: Image(
-                    image: AssetImage("images/logo.png"),
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.contain,
-                  ),
+          : SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    top: 0.0, right: 20.0, left: 20.0, bottom: 0.0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 40.0),
+                    head('Term Head'),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    body(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    head('Term Head'),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    body(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    head('Term Head'),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    body(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    head('Term Head'),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    body(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+                    SizedBox(
+                      height: 40,
+                    )
+                  ],
                 ),
-              ],
+              ),
             ),
+    );
+  }
+
+  Container body(String b) {
+    return Container(
+      child: Text(b,
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.black,
+          )),
+    );
+  }
+
+  Container head(String h) {
+    return Container(
+      child: Text(h,
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          )),
     );
   }
 }
