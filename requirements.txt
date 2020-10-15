@@ -1,0 +1,7 @@
+flask
+numpy
+pandas
+pmdarima
+nsepy
+datetime
+collections
