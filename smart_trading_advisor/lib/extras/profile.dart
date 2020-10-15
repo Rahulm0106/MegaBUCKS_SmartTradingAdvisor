@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_trading_advisor/assets/app_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:smart_trading_advisor/screens/startup.dart';
+import 'package:smart_trading_advisor/start/startup.dart';
 
 class Profile extends StatefulWidget {
   static const routeName = '/profile';

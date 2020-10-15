@@ -1,16 +1,14 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-plt.style.use('fivethirtyeight')
 
-from statsmodels.tsa.arima_model import ARIMA
 from pmdarima.arima import auto_arima
-from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 from nsepy import get_history
 from datetime import date
+
+from collections import Counter 
 
 app = Flask(__name__)
 
@@ -34,13 +32,17 @@ def stocks():
     horizons = 30
     forecasted_values = model.predict(n_periods=30)
     index_forecasted = np.arange(len(df_close.values), len(df_close.values) + horizons)
+    index_original = np.arange(0, len(df_close.values))
 
     # make series for plotting purpose
     forecasted_series = pd.Series(forecasted_values, index=index_forecasted)
+    original_series = pd.Series(df_close.values, index=index_original)
 
     r=forecasted_series.to_dict()
+    i=original_series.to_dict()
+    f=Counter(i)+Counter(r)
            
-    return r
+    return jsonify(f)
 
 if __name__ == '__main__':
     app.run()

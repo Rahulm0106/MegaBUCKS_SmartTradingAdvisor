@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_trading_advisor/assets/app_layout.dart';
-import 'package:smart_trading_advisor/screens/startup.dart';
+import 'package:smart_trading_advisor/start/startup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
