@@ -8,8 +8,6 @@ from pmdarima.arima import auto_arima
 from nsepy import get_history
 from datetime import date
 
-from collections import Counter 
-
 app = Flask(__name__)
 
 
@@ -40,7 +38,7 @@ def stocks():
 
     r=forecasted_series.to_dict()
     i=original_series.to_dict()
-    f=Counter(i)+Counter(r)
+    f={**i,**r}
            
     return jsonify(f)
 
