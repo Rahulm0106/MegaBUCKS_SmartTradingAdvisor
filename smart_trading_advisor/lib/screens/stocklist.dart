@@ -17,6 +17,23 @@ class _MyStocksListState extends State<MyStocksList> {
   FirebaseUser newUser;
   bool isloggedin = false;
 
+  var jsonResponse;
+  // int _itemcount = 0;
+
+  // Future<void> getQuotes(String _symbol) async {
+  //   String url = "http://10.0.2.2:5000/api?Symbol=$_symbol";
+  //   http.Response response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     setState(() {
+  //       jsonResponse = convert.jsonDecode(response.body);
+  //       _itemcount = jsonResponse.length;
+  //     });
+  //     debugPrint('Hello $_itemcount');
+  //   } else {
+  //     debugPrint("Request failed with status: ${response.statusCode}");
+  //   }
+  // }
+
   checkAuthentication() async {
     _auth.onAuthStateChanged.listen((newUser) {
       if (newUser == null) {
@@ -111,14 +128,18 @@ class _MyStocksListState extends State<MyStocksList> {
       onTap: () async {
         try {
           if (newUser != null) {
+            // _launchURL(document['stock-symbol']);
+            // String url = "http://10.0.2.2/api?Symbol=$document['stock-symbol']";
+            // html.window.open(url, name);
+
             // var firebaseUser = await _auth.currentUser();
-            // analysis(firebaseUser, document['stock-symbol']);
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => Analysis(
-                          stockanalysis: document['stock-symbol'],
+                          url: document['stock-symbol'],
                         )));
+            // analysis(firebaseUser, document['stock-symbol']);
           }
         } catch (e) {
           showDialog(

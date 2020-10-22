@@ -28,14 +28,14 @@ class _StartState extends State<Start> {
             SizedBox(height: 20),
             RichText(
                 text: TextSpan(
-                    text: 'Smart Trading ',
+                    text: 'Mega',
                     style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                     children: <TextSpan>[
                   TextSpan(
-                      text: 'App',
+                      text: 'BUCKS',
                       style: TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,

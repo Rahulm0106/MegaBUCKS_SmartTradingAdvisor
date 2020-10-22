@@ -1,42 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_trading_advisor/analysis/moreinfo.dart';
 import 'package:smart_trading_advisor/assets/app_layout.dart';
 import 'package:smart_trading_advisor/start/startup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Analysis extends StatefulWidget {
   static const routeName = '/analysis';
-  final String stockanalysis;
-  Analysis({Key key, @required this.stockanalysis}) : super(key: key);
+  final String url;
+  Analysis({Key key, @required this.url}) : super(key: key);
 
   @override
-  _AnalysisState createState() => _AnalysisState(stockanalysis);
+  _AnalysisState createState() => _AnalysisState(url);
 }
 
 class _AnalysisState extends State<Analysis> {
-  String stockanalysis;
-  _AnalysisState(this.stockanalysis);
+  String url;
+  _AnalysisState(this.url);
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final db = Firestore.instance;
   FirebaseUser newUser;
   bool isloggedin = false;
-  var jsonResponse;
-
-  Future<void> getQuotes() async {
-    String url = "http://10.0.2.2:500/api?Symbol=$stockanalysis";
-    http.Response response = await http.get(url);
-    if (response.statusCode == 200) {
-      setState(() {
-        jsonResponse = convert.jsonDecode(response.body);
-      });
-      print(jsonResponse);
-    } else {
-      jsonResponse = response.statusCode;
-      print("Request failed with status: ${response.statusCode}");
-    }
-  }
 
   checkAuthentication() async {
     _auth.onAuthStateChanged.listen((newUser) {
@@ -73,53 +58,33 @@ class _AnalysisState extends State<Analysis> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarBuilder("Analysis"),
-      body: Container(
-        child: !isloggedin
-            ? Center(child: CircularProgressIndicator())
-            : Column(
-                children: <Widget>[
-                  SizedBox(height: 40.0),
-                  Container(
-                    height: 300,
-                    child: Image(
-                      image: AssetImage("images/logo.png"),
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: RichText(
-                          text: TextSpan(
-                        text: stockanalysis,
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      )),
-                    ),
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Container(
-                    child: Center(
-                      child: RichText(
-                          text: TextSpan(
-                        text: jsonResponse,
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      )),
-                    ),
-                    padding: EdgeInsets.all(10),
-                  ),
-                ],
-              ),
-      ),
-      bottomNavigationBar: BottomNav(),
-    );
+    return !isloggedin
+        ? Center(child: CircularProgressIndicator())
+        : Scaffold(
+            appBar: appBarBuilder("Analysis"),
+            bottomNavigationBar: BottomNav(),
+            body: Builder(builder: (BuildContext context) {
+              return WebView(
+                initialUrl: 'http://10.0.2.2:5000/api?Symbol=$url',
+                javascriptMode: JavascriptMode.unrestricted,
+                onPageStarted: (String url) {
+                  print('Page started loading');
+                },
+                onPageFinished: (String url) {
+                  print('Page finished loading');
+                },
+                gestureNavigationEnabled: true,
+              );
+            }),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.black,
+              onPressed: () async {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MoreInfo()));
+              },
+              child:
+                  const Icon(Icons.info_outline_rounded, color: Colors.white),
+            ),
+          );
   }
 }

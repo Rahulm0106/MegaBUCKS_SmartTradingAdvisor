@@ -52,7 +52,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarBuilder("Dashboard"),
+      appBar: appBarBuilder("Profile"),
       body: Container(
         child: !isloggedin
             ? Center(child: CircularProgressIndicator())

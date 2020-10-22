@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 import numpy as np
 import pandas as pd
@@ -8,7 +8,7 @@ from pmdarima.arima import auto_arima
 from nsepy import get_history
 from datetime import date
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 
 @app.route('/api',methods=['GET'])
@@ -33,14 +33,34 @@ def stocks():
     index_original = np.arange(0, len(df_close.values))
 
     # make series for plotting purpose
-    forecasted_series = pd.Series(forecasted_values, index=index_forecasted)
-    original_series = pd.Series(df_close.values, index=index_original)
+    # forecasted_series = pd.DataFrame(columns=['Day','Close'])
+    # forecasted_series['Day'] = index_forecasted
+    # forecasted_series['Close'] = forecasted_values
 
-    r=forecasted_series.to_dict()
-    i=original_series.to_dict()
-    f={**i,**r}
-           
-    return jsonify(f)
+    # original_series = pd.DataFrame(columns=['Day','Close'])
+    # original_series['Day'] = index_original
+    # original_series['Close'] = df_close.values
+
+    # r=forecasted_series.to_dict()
+    # i=original_series.to_dict()
+    # f={**i,**r}
+    
+    legend = 'Forecasted Graph'
+    labels = index_forecasted.tolist()
+    values = forecasted_values.tolist()
+
+    day = index_original.tolist()
+    close = df_close.values.tolist()
+    name = 'Previous Data'
+
+    return render_template('graph.html', values=values, labels=labels, legend=legend, day=day, close=close, name=name, sym=Symbol)
+
+    # return jsonify(f)
+    # return plt.show()
+
+@app.route('/')
+def index():
+    return "<h1>Enter Stock symbol in URL</h1>"
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
