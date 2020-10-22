@@ -4,8 +4,6 @@ import 'package:smart_trading_advisor/extras/faqs.dart';
 import 'package:smart_trading_advisor/extras/profile.dart';
 import 'package:smart_trading_advisor/extras/terms.dart';
 import 'package:smart_trading_advisor/screens/addstocks.dart';
-import 'package:smart_trading_advisor/screens/favorites.dart';
-import 'package:smart_trading_advisor/screens/home.dart';
 import 'package:smart_trading_advisor/screens/stocklist.dart';
 import 'my_flutter_app_icons.dart';
 
@@ -42,16 +40,10 @@ class BottomNav extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.library_books,
+                Icons.add,
                 color: Colors.white,
               ),
-              label: "Stocks"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.star,
-                color: Colors.white,
-              ),
-              label: "Fav"),
+              label: "Add"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
@@ -60,19 +52,13 @@ class BottomNav extends StatelessWidget {
               label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-              label: "Add"),
-          BottomNavigationBarItem(
-              icon: Icon(
                 Icons.menu,
                 color: Colors.white,
               ),
               label: "Menu")
         ],
         onTap: (int index) {
-          if (index == 4) {
+          if (index == 2) {
             showModalBottomSheet(
                 context: context,
                 backgroundColor: Colors.transparent,
@@ -195,16 +181,10 @@ class BottomNav extends StatelessWidget {
                     ),
                   );
                 });
-          } else if (index == 3) {
+          } else if (index == 0) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => AddStocks()));
-          } else if (index == 2) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
           } else if (index == 1) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Favorites()));
-          } else if (index == 0) {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => MyStocksList()));
           } else {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_trading_advisor/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_trading_advisor/screens/stocklist.dart';
 import 'package:smart_trading_advisor/start/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smart_trading_advisor/start/thankyou.dart';
@@ -22,7 +22,7 @@ class _SignupScreenState extends State<SignupScreen> {
     _auth.onAuthStateChanged.listen((user) async {
       if (user != null) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => MyStocksList()));
       }
     });
   }
