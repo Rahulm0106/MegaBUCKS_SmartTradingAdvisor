@@ -42,8 +42,8 @@ class _ThankyouState extends State<Thankyou> {
   }
 
   @override
-  // ignore: must_call_super
   void initState() {
+    super.initState();
     this.checkAuthentication();
     this.getUser();
   }

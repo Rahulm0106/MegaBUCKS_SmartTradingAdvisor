@@ -79,8 +79,12 @@ class _AnalysisState extends State<Analysis> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black,
               onPressed: () async {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MoreInfo()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MoreInfo(
+                              url: url,
+                            )));
               },
               child:
                   const Icon(Icons.info_outline_rounded, color: Colors.white),
