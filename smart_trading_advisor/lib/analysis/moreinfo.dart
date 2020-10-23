@@ -61,7 +61,7 @@ class _MoreInfoState extends State<MoreInfo> {
       bottomNavigationBar: BottomNav(),
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'http://10.0.2.2:5000/',
+          initialUrl: 'http://10.0.2.2:5000/error?Symbol=$url',
           javascriptMode: JavascriptMode.unrestricted,
           onPageStarted: (String url) {
             print('Page started loading');
