@@ -43,7 +43,7 @@ class _StartState extends State<Start> {
                 ])),
             SizedBox(height: 10.0),
             Text(
-              'Predict the future',
+              'Smart Trading Advisor',
               style: TextStyle(color: Colors.black),
             ),
             SizedBox(height: 75.0),
