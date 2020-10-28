@@ -26,6 +26,6 @@ During the lockdown, many people started investing in the stock markets to suppl
 ## Guide
 
 ### Dr. S.Sountharajan
-* Program Chair - B.Tech CSE Spl in Artificial Intelligence and Machine Learning and M.Tech CSE Spl in Artificial Intelligence and Machine Learning, 
+* Program Chair - B.Tech CSE Spl in Artificial Intelligence and Machine Learning
 * Email ID - s.sountharrajan@vitbhopal.ac.in
 * [Website](https://sites.google.com/site/csessountharrajan)
