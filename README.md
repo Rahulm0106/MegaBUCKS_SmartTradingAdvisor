@@ -18,7 +18,7 @@ During the lockdown, many people started investing in the stock markets to suppl
 ### Rahul Mandviya
 * Email ID - rahul.sanjay2019@vitbhopal.ac.in
 * Registration No.: 19MIM10062
-* [GitHub Profie](https://github.com/Rahulm116/)
+* [GitHub Profie](https://github.com/Rahulm0106/)
 
 ### Abhinav Gadgil
 * Email ID - abhinav.gadgil2019@vitbhopal.ac.in
