@@ -15,17 +15,12 @@ During the lockdown, many people started investing in the stock markets to suppl
 * Registration No.: 19BAI10110
 * [GitHub Profie](https://github.com/Rajat-Kaushik99/)
 
-### Ashwin R
-* Email ID - ashwin.r2019@vitbhopal.ac.in
-* Registration No.: 19BAI10132
+### Rahul Mandviya
+* Email ID - rahul.sanjay2019@vitbhopal.ac.in
+* Registration No.: 19MIM10062
+* [GitHub Profie](https://github.com/Rahulm116/)
 
-### Faizan Mirza
-* Email ID - faizan.mirza2019@vitbhopal.ac.in
-* Registration No.: 19BAI10157
-
-## Guide
-
-### Dr. S.Sountharajan
-* Program Chair - B.Tech CSE Spl in Artificial Intelligence and Machine Learning
-* Email ID - s.sountharrajan@vitbhopal.ac.in
-* [Website](https://sites.google.com/site/csessountharrajan)
+### Abhinav Gadgil
+* Email ID - abhinav.gadgil2019@vitbhopal.ac.in
+* Registration No.: 19MIM10067
+* [GitHub Profie](https://github.com/Abhigadgil15/)
