@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_trading_advisor/screens/home.dart';
+import 'package:smart_trading_advisor/screens/stocklist.dart';
 import 'package:smart_trading_advisor/start/signup.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _auth.onAuthStateChanged.listen((user) {
       if (user != null) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => MyStocksList()));
       }
     });
   }
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()));
+                                      builder: (context) => MyStocksList()));
                             }
                           } catch (e) {
                             showDialog(

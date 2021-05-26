@@ -3,7 +3,7 @@ import 'package:smart_trading_advisor/analysis/analysis.dart';
 import 'package:smart_trading_advisor/assets/app_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:smart_trading_advisor/screens/home.dart';
+import 'package:smart_trading_advisor/start/startup.dart';
 
 class MyStocksList extends StatefulWidget {
   static const routeName = '/stocklist';
@@ -18,27 +18,12 @@ class _MyStocksListState extends State<MyStocksList> {
   bool isloggedin = false;
 
   var jsonResponse;
-  // int _itemcount = 0;
-
-  // Future<void> getQuotes(String _symbol) async {
-  //   String url = "http://10.0.2.2:5000/api?Symbol=$_symbol";
-  //   http.Response response = await http.get(url);
-  //   if (response.statusCode == 200) {
-  //     setState(() {
-  //       jsonResponse = convert.jsonDecode(response.body);
-  //       _itemcount = jsonResponse.length;
-  //     });
-  //     debugPrint('Hello $_itemcount');
-  //   } else {
-  //     debugPrint("Request failed with status: ${response.statusCode}");
-  //   }
-  // }
 
   checkAuthentication() async {
     _auth.onAuthStateChanged.listen((newUser) {
       if (newUser == null) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => Start()));
       }
     });
   }
@@ -128,18 +113,12 @@ class _MyStocksListState extends State<MyStocksList> {
       onTap: () async {
         try {
           if (newUser != null) {
-            // _launchURL(document['stock-symbol']);
-            // String url = "http://10.0.2.2/api?Symbol=$document['stock-symbol']";
-            // html.window.open(url, name);
-
-            // var firebaseUser = await _auth.currentUser();
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => Analysis(
                           url: document['stock-symbol'],
                         )));
-            // analysis(firebaseUser, document['stock-symbol']);
           }
         } catch (e) {
           showDialog(
@@ -204,14 +183,6 @@ class _MyStocksListState extends State<MyStocksList> {
         .document(_symbol)
         .delete();
   }
-
-  // void analysis(FirebaseUser firebaseUser, String _symbol) {
-  //   db.collection("user").document(firebaseUser.uid).updateData({
-  //     "analysis-stock": _symbol,
-  //   }).then((_) {
-  //     String _analysisstock = _symbol;
-  //   });
-  // }
 
   void data(FirebaseUser firebaseUser, String _symbol, String _stockname) {
     db
