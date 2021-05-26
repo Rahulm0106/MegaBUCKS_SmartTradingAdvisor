@@ -64,7 +64,7 @@ class _MoreInfoState extends State<MoreInfo> {
           initialUrl: 'http://10.0.2.2:5000/error?Symbol=$url',
           javascriptMode: JavascriptMode.unrestricted,
           onPageStarted: (String url) {
-            print('Page started loading');
+            print('Page started loading $url');
           },
           onPageFinished: (String url) {
             print('Page finished loading');
@@ -76,6 +76,7 @@ class _MoreInfoState extends State<MoreInfo> {
         backgroundColor: Colors.black,
         onPressed: () async {
           Navigator.of(context).pop(true);
+          url = '';
         },
         child: const Icon(Icons.bar_chart, color: Colors.white),
       ),

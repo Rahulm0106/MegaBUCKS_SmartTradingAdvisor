@@ -47,7 +47,7 @@ def stocks():
 
 @app.route('/error',methods=['GET'])
 def error():
-    Symbol = 'RELIANCE'
+    Symbol = str(request.args['Symbol'])
     data = get_history(symbol=Symbol, start=date(2019,1,1), end=date.today()).fillna(0)
     df_close=data["Close"]
 
